@@ -25,18 +25,3 @@ const Listgroup = ({ regions, country, selectedRegion, onReasonChange }) => {
 };
 
 export default Listgroup;
-
-// class Listgroup extends Component {
-//   render() {
-//     const {
-//       genre,
-//       onGenreChange,
-//       selectedGenre,
-//       textProperty,
-//       valueProperty,
-//       movies,
-//     } = this.props;
-//   }
-// }
-// textProperty: "name",
-//   valueProperty: "_id",
