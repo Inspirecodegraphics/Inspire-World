@@ -1,15 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import countryService from "../services/countryService";
+import { useHistory } from "react-router-dom";
 
 const CountryDescription = ({ countries }) => {
   const [country, setCountry] = useState({});
   let { id } = useParams();
+  let history = useHistory();
   useEffect(() => {
     let init = async () => {
-      const country = await countryService.getCountryByCode(id);
-      setCountry(country.data);
-      console.log(country);
+      try {
+        const country = await countryService.getCountryByCode(id);
+        setCountry(country.data);
+      } catch (error) {
+        if (error.response.status === 400) {
+          console.log("redirecting");
+          history.replace("/not-found");
+        }
+      }
     };
     init();
   }, []);
@@ -53,10 +61,15 @@ const CountryDescription = ({ countries }) => {
             <div className="col-6">
               <ul className="font-weight-bolder mt-2 country-data-list p-0">
                 <li>
-                  Area:{" "}
-                  <b>
-                    {country.area} Km<sup>2</sup>
-                  </b>
+                  Area: <b>{country.area}</b>
+                  {country.area ? (
+                    <b>
+                      {" "}
+                      Km<sup>2</sup>
+                    </b>
+                  ) : (
+                    ""
+                  )}
                 </li>
                 <li>
                   Native Language:{" "}
@@ -84,7 +97,8 @@ const CountryDescription = ({ countries }) => {
               Neighbour Countries
             </h4>
 
-            <div className="d-inline-block">
+            <div className="">
+              {/* d-inline-block */}
               {country.borders
                 ? country.borders.map((b) => (
                     <a

@@ -12,7 +12,7 @@ code {
     monospace;
 }
 body {
-  background-image: linear-gradient(
+  /* background-image: linear-gradient(
     to left bottom,
     #edfd84,
     #b1ffa9,
@@ -26,11 +26,16 @@ body {
     #76ecff,
     #65f4fd,
     #5ffbf1
-  );
-  background-color: #cccccc;
+  ); */
+  background-color: rgb(246, 248, 250) !important;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+}
+p {
+  font-size: 14px;
+  font-family: Inter, system, -apple-system, BlinkMacSystemFont, Roboto,
+    "Segoe UI", Arial, sans-serif;
 }
 .card-img-box img {
   height: 12vw;
@@ -69,4 +74,25 @@ body {
 .side-regions {
   position: sticky;
   top: 0px;
+}
+
+.card.promoting-card {
+  color: rgb(88, 96, 105);
+  background-color: rgb(255, 255, 255);
+  border-radius: 0.25rem;
+  box-shadow: rgb(0 0 0 / 30%) 0px 10px 30px -15px;
+  transition: all 150ms cubic-bezier(0.23, 1, 0.32, 1) 0s;
+}
+.card.promoting-card:hover {
+  box-shadow: rgb(0 0 0 / 15%) 0px 8px 20px -15px;
+}
+
+.card-title {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  cursor: pointer;
+}
+.globe {
+  fill: red;
 }

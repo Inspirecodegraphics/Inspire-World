@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 const Country = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [country, setCountry] = useState([]);
-  const [sortColumn, setSortColumn] = useState({ path: "name", order: "all" });
+  const [sortColumn, setSortColumn] = useState({ path: "all", order: "asc" });
   const [pageSize, setPageSize] = useState(12);
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedRegion, SetSelectedRegion] = useState(null);
@@ -32,9 +32,14 @@ const Country = () => {
     SetSelectedRegion(null);
   };
   const handleSortChange = (event) => {
-    let order = event.target.value;
-    setSortColumn({ path: "name", order: order });
-    console.log(`?sortBy=${event.target.value}`);
+    let path = event.target.value;
+    setSortColumn({ path: path, order: "asc" });
+    setCurrentPage(1);
+    // console.log(`?sortBy=${event.target.value}`);
+  };
+  const handleOrderChange = (sortColumn) => {
+    let sortOrder = sortColumn.order === "asc" ? "desc" : "asc";
+    setSortColumn({ path: sortColumn.path, order: sortOrder });
   };
   const handlePageChange = (event, value) => {
     setCurrentPage(value);
@@ -68,13 +73,14 @@ const Country = () => {
             value={searchQuery}
             handleSearch={handleSearch}
             handleSortChange={handleSortChange}
-            sortColumn={sortColumn.order}
+            handleOrderChange={handleOrderChange}
+            sortColumn={sortColumn}
           ></SearchNav>
         </div>
       </div>
       <div className="row">
         <div className="col-lg-10 my-4 px-lg-0">
-          {finalCountry.length === 0 && (
+          {finalCountry.length === 0 && country && (
             <p className="text-center pt-3">
               Sorry the <b>Country</b> you are looking is not found.
               <br />
